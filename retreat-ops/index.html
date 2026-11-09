@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f7f3">
+  <meta name="description" content="2026 징검다리 수련회 운영 체크리스트와 현장 큐시트">
+  <title>징검다리 수련회 · 운영 데스크</title>
+  <style>:root {
+  color-scheme: light;
+  --paper:#f5f6f2; --white:#fff; --ink:#172923; --muted:#56665d; --line:#e1e7df;
+  --green:#245545; --green-dark:#12392e; --mint:#e5f0e8; --amber:#805316; --amber-soft:#faf0dc;
+  --sidebar:220px; --radius:18px;
+  font-family:"Pretendard","Apple SD Gothic Neo","Malgun Gothic","맑은 고딕",system-ui,sans-serif;
+}
+* { box-sizing:border-box }
+body { margin:0; background:var(--paper); color:var(--ink); font-size:14px; line-height:1.55; word-break:keep-all; overflow-wrap:anywhere }
+button,input,select,textarea { font:inherit; color:inherit }
+button { cursor:pointer }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible { outline:3px solid #589175; outline-offset:3px }
+button:disabled { cursor:default; opacity:.55 }
+svg { display:block; flex:none }
+h1,h2,h3,p { margin:0 }
+h1,h2,h3,strong { letter-spacing:-.035em }
+.skip { position:fixed; top:8px; left:8px; z-index:10; padding:9px 16px; background:white; transform:translateY(-150%) }
+.skip:focus { transform:none }
+.sidebar { position:fixed; inset:0 auto 0 0; width:var(--sidebar); display:flex; flex-direction:column; background:#fcfdfb; border-right:1px solid var(--line); padding:27px 15px 21px; z-index:2 }
+.brand { display:flex; gap:12px; align-items:center; padding:0 9px; margin-bottom:47px }
+.brand-icon { width:40px; height:40px; display:grid; place-items:center; border-radius:12px; background:var(--green-dark); color:#e5f1e2 }
+.brand strong { display:block; font-size:18px; line-height:1.2 }
+.brand small,.sidebar-foot small { display:block; color:var(--muted); font-size:11px; margin-top:4px }
+.nav-label { color:var(--muted); font-size:11px; font-weight:700; padding:0 11px; margin-bottom:10px }
+#nav { display:grid; gap:5px }
+.nav-item { display:flex; gap:12px; align-items:center; width:100%; border:0; border-radius:10px; background:transparent; color:var(--muted); padding:11px 12px; text-align:left; font-weight:650; white-space:nowrap }
+.nav-item:hover,.nav-item[aria-current=page] { background:var(--mint); color:var(--green-dark) }
+.nav-item[aria-current=page] { font-weight:800 }
+.sidebar-foot { display:flex; gap:11px; align-items:center; padding:14px 9px 0; border-top:1px solid var(--line); margin-top:auto }
+.sidebar-foot strong { font-size:12px; font-variant-numeric:tabular-nums }
+.mini-calendar { color:var(--green) }
+.workspace { margin-left:var(--sidebar) }
+.topbar { height:63px; display:flex; justify-content:space-between; align-items:center; padding:0 32px; border-bottom:1px solid var(--line); background:#fcfdfb; gap:10px }
+.breadcrumbs { display:flex; align-items:center; gap:10px; color:var(--muted); font-size:12px; white-space:nowrap }
+.breadcrumbs strong { color:var(--ink) }
+.storage { display:flex; gap:7px; align-items:center; padding:6px 10px; color:var(--green); background:var(--white); border:1px solid var(--line); border-radius:99px; font-size:11px; font-weight:700; white-space:nowrap }
+.storage:hover { background:var(--mint) }
+.storage-dot { width:7px; height:7px; background:#4e8767; border-radius:50% }
+.storage[data-warning] .storage-dot { background:#af6d1e }
+main,.footer { max-width:1320px; margin-inline:auto; padding-inline:32px }
+main { padding-top:28px; min-height:calc(100vh - 127px) }
+main:focus { outline:none }
+.footer { display:flex; justify-content:space-between; align-items:center; gap:12px; padding-top:23px; padding-bottom:24px; color:var(--muted); font-size:11px }
+.hero { position:relative; isolation:isolate; overflow:hidden; display:flex; align-items:center; min-height:212px; padding:30px 35px; color:#f9fbf4; background:var(--green-dark); border-radius:22px }
+.hero-copy { position:relative; z-index:1 }
+.hero-art { position:absolute; right:0; bottom:0; width:58%; height:100%; opacity:.93; pointer-events:none }
+.kicker { color:#b4d7bf; font-size:11px; font-weight:800; letter-spacing:.15em; display:flex; align-items:center; gap:8px }
+.kicker::before { content:""; width:14px; height:1px; background:#a7cdb0 }
+.hero h1 { font-size:clamp(32px,4vw,49px); line-height:1.13; margin:10px 0 9px; letter-spacing:-.07em }
+.hero p { color:#d9e6db; font-size:14px }
+.hero-meta { display:flex; flex-wrap:wrap; gap:8px 19px; margin-top:21px; color:#e4eee5; font-size:12px }
+.hero-meta span { display:inline-flex; align-items:center; gap:7px }
+.stats { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:16px 0 27px }
+.stat { position:relative; background:white; border:1px solid var(--line); border-radius:15px; padding:15px 16px 14px; text-align:left; min-width:0 }
+.stat:hover { border-color:#99b8a6; background:#fbfdfb }
+.stat-label { display:flex; align-items:center; gap:8px; color:var(--muted); font-size:12px; font-weight:700 }
+.stat-value { display:flex; align-items:baseline; gap:4px; margin:3px 0 1px }
+.stat-value strong { font-size:28px; font-variant-numeric:tabular-nums; line-height:1.3 }
+.stat-value span { color:var(--muted); font-size:12px }
+.stat-sub { font-size:11px; color:var(--muted) }
+.stat-icon { width:28px; height:28px; border-radius:8px; display:grid; place-items:center; background:var(--mint); color:var(--green) }
+.stat:nth-child(2) .stat-icon { background:var(--amber-soft); color:var(--amber) }
+.meter { display:block; background:#edf1eb; height:4px; border-radius:10px; overflow:hidden; margin-top:8px }
+.meter span { display:block; background:#5a926d; height:100%; border-radius:inherit }
+.section-head { display:flex; align-items:baseline; gap:10px; margin:0 0 12px; justify-content:space-between }
+.section-head h2 { font-size:20px }
+.muted { color:var(--muted); font-size:12px }
+.day-strip { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:7px; margin-bottom:15px }
+.day-button { border:1px solid var(--line); background:white; border-radius:10px; padding:8px 4px; min-height:58px; text-align:center; color:var(--muted) }
+.day-button:hover { border-color:#8aa997 }
+.day-button strong { display:block; font-size:16px; color:var(--ink); font-variant-numeric:tabular-nums }
+.day-button span { font-size:11px }
+.day-button[aria-pressed=true] { background:var(--green); border-color:var(--green); color:#dcebe0 }
+.day-button[aria-pressed=true] strong { color:white }
+.overview-grid { display:grid; grid-template-columns:minmax(0,1.22fr) minmax(0,1fr); gap:14px; align-items:start }
+.panel { padding:18px 19px; background:white; border:1px solid var(--line); border-radius:var(--radius); min-width:0 }
+.panel-head { display:flex; align-items:center; justify-content:space-between; gap:8px; margin-bottom:9px }
+.panel-head h3 { font-size:16px }
+.agenda { display:grid }
+.agenda div { display:grid; grid-template-columns:64px minmax(0,1fr); gap:10px; padding:10px 0; border-top:1px solid #eff1ec }
+.agenda div:first-child { border:0 }
+.agenda strong { color:var(--green); font-size:12px; padding-top:2px }
+.agenda p { font-size:13px }
+.agenda .finish { background:#f3f7f1; border:0; border-radius:9px; padding:9px 10px; margin-top:6px }
+.text-button { background:none; border:0; color:var(--green); font-weight:750; padding:3px 0; text-align:left; font-size:12px }
+.text-button:hover { text-decoration:underline }
+.page-head { margin-bottom:20px }
+.page-kicker { color:var(--green); font-size:11px; font-weight:800; letter-spacing:.14em; margin-bottom:6px }
+.page-head h1 { font-size:clamp(29px,4vw,40px); line-height:1.2; margin-bottom:8px }
+.page-head p { color:var(--muted); font-size:13px }
+.toolbar { display:flex; flex-wrap:wrap; gap:8px; align-items:center; background:white; border:1px solid var(--line); border-radius:13px; padding:10px; margin-bottom:10px }
+.search { display:flex; gap:7px; align-items:center; min-width:min(100%,210px); flex:1 1 220px; color:var(--muted); border:1px solid var(--line); padding:0 9px; border-radius:8px; background:#f8faf7 }
+.search input { width:100%; min-width:0; border:0; outline-offset:1px; background:transparent; padding:8px 2px }
+select,.field input,.field textarea { border:1px solid var(--line); background:#f8faf7; border-radius:8px; min-height:38px; padding:7px 9px }
+.results-meta { display:flex; align-items:center; justify-content:space-between; gap:8px; color:var(--muted); padding:4px 1px 9px; font-size:12px }
+.list { display:grid; gap:7px }
+.task { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:8px; align-items:center; border:1px solid var(--line); border-radius:12px; background:white; padding:5px 10px 5px 8px }
+.panel .task { border-width:1px 0 0; border-radius:0; padding-inline:0 }
+.panel .task:first-child { border:0 }
+.tick { display:grid; place-items:center; border:1px solid #b8c7be; border-radius:7px; width:29px; height:29px; background:white; color:var(--green); margin:4px }
+.tick:hover { background:var(--mint) }
+.tick[aria-pressed=true] { background:var(--green); color:white; border-color:var(--green) }
+.task-link { display:block; width:100%; text-align:left; border:0; background:transparent; padding:7px 2px; min-width:0 }
+.task-link:hover strong { text-decoration:underline; text-underline-offset:3px }
+.task-link strong { display:block; font-size:14px }
+.task-link small { color:var(--muted); font-size:11px; display:block; margin-top:1px }
+.task.is-done .task-link strong { color:var(--muted) }
+.badge { display:inline-flex; align-items:center; width:max-content; max-width:100%; border-radius:99px; padding:3px 8px; font-size:11px; font-weight:750; white-space:nowrap; background:#edf0eb; color:#4d5b53 }
+.badge.done,.badge.standard { background:var(--mint); color:var(--green-dark) }
+.badge.active { background:#e8eff7; color:#335879 }
+.badge.warn { background:var(--amber-soft); color:var(--amber) }
+.empty { padding:26px 12px; text-align:center; background:white; border:1px dashed #c7d3ca; border-radius:12px; color:var(--muted) }
+.segment { display:inline-flex; gap:3px; border:1px solid var(--line); border-radius:10px; background:#e9eee8; padding:3px; margin-bottom:12px }
+.segment button { border:0; border-radius:7px; background:transparent; padding:7px 12px; color:var(--muted); font-size:13px; font-weight:700 }
+.segment button[aria-pressed=true] { background:white; color:var(--green-dark); box-shadow:0 1px 4px #203a2617 }
+.cue { display:grid; grid-template-columns:145px minmax(0,1fr); gap:12px; align-items:start }
+.cue-time { padding:12px 8px 0 0; color:var(--green-dark); font-variant-numeric:tabular-nums; font-size:14px; font-weight:800 }
+.cue-time small { display:block; color:var(--muted); font-weight:600; font-size:11px }
+.cue-card,.booth-card { width:100%; min-width:0; border:1px solid var(--line); background:white; border-radius:12px; padding:12px 14px; text-align:left }
+.cue-card:hover,.booth-card:hover { border-color:#96b4a2; background:#fcfdfb }
+.cue-card strong,.booth-card strong { display:block; font-size:15px; margin:2px 0 }
+.cue-card small,.booth-card small { color:var(--muted); font-size:12px }
+.cue-card-top { display:flex; align-items:center; flex-wrap:wrap; gap:5px 8px }
+.cue-card p { margin-top:6px; font-size:13px; color:var(--muted) }
+.notice { display:flex; gap:10px; align-items:flex-start; padding:12px 14px; border-radius:11px; background:var(--amber-soft); color:#674812; margin-bottom:12px; font-size:13px }
+.notice svg { margin-top:2px }
+.booths { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:9px }
+.booth-card { display:grid; grid-template-columns:38px minmax(0,1fr); gap:10px; align-items:start }
+.booth-num { display:grid; place-items:center; height:38px; border-radius:9px; background:var(--mint); color:var(--green); font-weight:800; font-variant-numeric:tabular-nums }
+.booth-card .badge { margin-top:7px }
+dialog { color:var(--ink); border:1px solid var(--line); border-radius:20px; background:white; width:min(560px,calc(100vw - 22px)); max-height:min(90dvh,780px); padding:0; box-shadow:0 20px 80px #11271d50; overscroll-behavior:contain }
+dialog::backdrop { background:#11291f68 }
+body:has(dialog[open]) { overflow:hidden }
+.dialog-head { position:sticky; z-index:1; top:0; display:flex; justify-content:space-between; gap:14px; align-items:flex-start; padding:18px 20px 13px; background:white; border-bottom:1px solid var(--line) }
+.dialog-head h2 { font-size:21px; line-height:1.35; margin-top:4px }
+.dialog-head p { color:var(--green); font-size:11px; font-weight:800; letter-spacing:.08em }
+.icon-button { display:grid; place-items:center; border:1px solid var(--line); border-radius:9px; background:white; width:34px; height:34px; flex:none }
+.icon-button:hover { background:var(--mint) }
+.dialog-body { padding:16px 20px 20px }
+.detail { margin:0 0 14px; display:grid; gap:8px }
+.detail div { display:grid; grid-template-columns:91px minmax(0,1fr); gap:10px; font-size:13px }
+.detail dt { color:var(--muted); font-weight:700 }
+.detail dd { margin:0; white-space:pre-wrap }
+.callout { background:#f2f6f0; padding:11px 13px; border-radius:10px; margin:8px 0 13px; font-size:13px; white-space:pre-wrap }
+.callout strong { display:block; margin-bottom:3px; color:var(--green) }
+.field { display:grid; gap:5px; font-size:13px; font-weight:700; margin-top:10px }
+.field textarea { resize:vertical; min-height:76px; font-weight:400 }
+.field input,.field select { width:100%; font-weight:400 }
+.dialog-actions { display:flex; flex-wrap:wrap; justify-content:flex-end; align-items:center; gap:8px; margin-top:16px }
+.primary,.secondary { border:1px solid var(--green); background:var(--green); color:white; border-radius:8px; font-size:13px; font-weight:750; padding:8px 12px }
+.primary:hover { background:var(--green-dark) }
+.secondary { background:white; border-color:var(--line); color:var(--green) }
+.secondary:hover { background:var(--mint) }
+.source-list { margin:8px 0 0; padding-left:20px; font-size:13px }
+.source-list li + li { margin-top:6px }
+#toast { position:fixed; z-index:3; bottom:16px; left:calc(50% + var(--sidebar)/2); transform:translateX(-50%); padding:8px 15px; background:var(--green-dark); color:white; border-radius:12px; pointer-events:none; font-size:13px; width:max-content; max-width:calc(100% - 24px); box-shadow:0 4px 16px #173c2a33 }
+#toast:empty { display:none }
+@media (max-width:1100px) {
+  :root { --sidebar:188px }
+  .topbar,main,.footer { padding-inline:23px }
+}
+@media (max-width:820px) {
+  :root { --sidebar:0px }
+  .sidebar { position:sticky; top:0; width:100%; padding:9px 15px; border-right:0; border-bottom:1px solid var(--line) }
+  .brand,.nav-label,.sidebar-foot { display:none }
+  #nav { grid-template-columns:repeat(4,minmax(0,1fr)) }
+  .nav-item { justify-content:center; padding:8px 5px; gap:5px; font-size:12px }
+  .nav-item svg { width:16px; height:16px }
+  .topbar { height:47px }
+  main { padding-top:17px }
+}
+@media (max-width:590px) {
+  .topbar,main,.footer { padding-inline:13px }
+  .hero { min-height:184px; padding:22px 17px; border-radius:15px }
+  .hero h1 { font-size:clamp(26px,8vw,36px) }
+  .hero p { font-size:12px }
+  .hero-meta { gap:4px 11px; margin-top:15px; font-size:11px }
+  .hero-art { opacity:.4; width:80% }
+  .stats { gap:6px; margin:10px 0 20px }
+  .stat { padding:9px 7px; border-radius:10px }
+  .stat-label { gap:4px; font-size:10px }
+  .stat-icon { width:20px; height:20px; border-radius:6px }
+  .stat-icon svg { width:13px; height:13px }
+  .stat-value strong { font-size:23px }
+  .stat-value span,.stat-sub { font-size:10px }
+  .day-strip { gap:4px }
+  .day-button { min-height:50px; padding:5px 2px }
+  .day-button strong { font-size:14px }
+  .overview-grid,.booths { grid-template-columns:1fr }
+  .panel { padding:13px 12px }
+  .cue { grid-template-columns:1fr; gap:2px }
+  .cue-time { padding:8px 2px 2px; display:flex; align-items:baseline; gap:8px }
+  .task { gap:4px; padding-inline:4px 7px }
+  .task-link strong { font-size:13px }
+  .dialog-head,.dialog-body { padding-inline:14px }
+}
+@media (max-width:375px) {
+  .nav-item { flex-direction:column; gap:2px; font-size:11px }
+}
+@media (prefers-reduced-motion:no-preference) {
+  button { transition:background-color .14s,border-color .14s }
+}
+</style>
+</head>
+<body>
+  <a class="skip" href="#content">본문 바로가기</a>
+  <aside class="sidebar">
+    <div class="brand"><span class="brand-icon" aria-hidden="true"></span><span><strong>징검다리</strong><small>수련회 운영 데스크</small></span></div>
+    <div class="nav-label">워크스페이스</div>
+    <nav id="nav" aria-label="주 메뉴"></nav>
+    <div class="sidebar-foot"><span class="mini-calendar" aria-hidden="true"></span><div><strong>2026. 11. 13–14</strong><small>청춘산장리조트</small></div></div>
+  </aside>
+  <div class="workspace">
+    <header class="topbar">
+      <div class="breadcrumbs"><span>2026 수련회</span><span aria-hidden="true">/</span><strong id="breadcrumb">개요</strong></div>
+      <button id="storage" class="storage" type="button"><span class="storage-dot"></span><span id="storage-label">이 브라우저에 저장</span></button>
+    </header>
+    <main id="content" tabindex="-1"></main>
+    <footer class="footer"><span>원본 기준 2026. 11. 09. 23:39</span><button type="button" class="text-button" data-action="sources">원본 및 근거 보기 <span aria-hidden="true">↗</span></button></footer>
+  </div>
+  <dialog id="dialog" aria-labelledby="dialog-title"><div id="dialog-content"></div></dialog>
+  <div id="toast" role="status" aria-live="polite"></div>
+  <script id="workbook-data" type="application/json">{"key":"76cd20247747f4c627925858232e406ed8c0ea7dcb580faeb66775e88787d9c3","notes":{"날짜별 준비":["2026년 11월 13일(금)~14일(토) · 청춘산장리조트 · 11/9 23:39 확보분 기준","오전·오후·저녁은 준비 권장 구간입니다. 대화에 시각이 있는 일정은 숫자로 표시했습니다."],"체크리스트":["날짜·팀·상태로 필터링합니다. 준비 목표는 권장 준비일이며, 점검과 공식 마감은 마감 구분에 적었습니다.","기존 회의 배정은 현장 참석을 재확인합니다. 상태를 변경하면 날짜별 남은 항목이 갱신됩니다. 확정 담당·인수자는 메모에 기록합니다."],"금요일 큐시트":["11/13(금) 등록 전부터 11/14(토) 02:30까지 · 영누크는 22:30부터 학생 일정과 병행","기준안·산출·회의 기록을 표시했습니다. 장소·인계자 또는 시각을 재확인할 행은 회의 결과로 갱신합니다."],"토요일 큐시트":["11/14(토) 아침 준비부터 폐회·철수까지 · 12:00 퇴실과 폐회는 동시 업무","기준안·산출·회의 기록을 표시했습니다. 장소·인계자 또는 시각을 재확인할 행은 회의 결과로 갱신합니다."],"레크 10부스":["09:30~10:30 편성 · 실운영 50분 · 18조. 회계등록팀은 별도 부스 없이 진행 관리·인원 지원.","10곳을 6분씩 돌면 이동 전 60분입니다. 방문 수·동시 수용·이동 및 채점 마감은 점검에서 결정합니다."]},"days":[{"date":"2026-11-09T00:00","title":"기준일 · 확보분","morning":"11/9 확보분 확인. 조장모임, 기도회, 18개 조별방 개설은 완료 보고를 기록.","afternoon":"캠대표 출발지 편성 요청 게시, 공지 카드와 선물 구매 보고 확인.","evening":"개인톡·단체방에서 서로 다른 문구와 보류 항목을 다음 날 점검에 넘긴다.","finish":"기준 명단 140명과 후속 추가·중복을 구분. 부스 문안과 실제 게시를 별도 관리.","remaining":0},{"date":"2026-11-10T00:00","title":"화 · 디렉터 점검","morning":"비포어 개역개정 공지 예약·게시 여부 확인. 조장에게 자기소개·묵상 안내 진행만 확인.","afternoon":"회등팀과 추가 2건·중복·입금 대조. 전체·숙박·끼니·학교별 수량과 방표 준비. 공지 카드 김밥 문구 수정안 준비.","evening":"21:30 디렉터 점검. 방 정원·명단·공지 → 금요 인계·밤 공간 → 레크 순환·토요일 퇴실 순으로 결정.","finish":"각 결정에 담당·마감·현장 인수자를 기록. 장소/링크와 전체팀 참석 범위 확인.","remaining":23},{"date":"2026-11-11T00:00","title":"수 · 외부 확인 및 마감","morning":"수진 간사님 산장 통화 예정. 참가자 공지는 검토 승인 후 오전 배포안. 최종 수량과 전달 경로 확인.","afternoon":"양식팀 발주·픽업, 홍보 인쇄·수령, 시설 봉투·공간 확인. 캠대표 출발지 편성 회수.","evening":"10부스 100점 배점·실측 댓글 마감. 나단은 7번 5층·4층 시연 결과와 재고/게시 확인.","finish":"숙소 회신과 공지 전달을 기록. 18조 순환표·부스별 소요·누락을 점검.","remaining":12},{"date":"2026-11-12T00:00","title":"목 · 포장 및 리허설","morning":"명찰·식권·기도카드·가이드북·팻말·현수막 수령 및 수량 대조. 장보기·냉장품·식권함 라벨링.","afternoon":"PPT 수합→근우 송출 인계, 공동 MC·퀴즈 이동·기도카드 신호 리허설. 우천·야간 안내도 준비.","evening":"찬양 콘티·장비/음원 백업, 팀 도착·교대·강사 연락·배부품 인수자 확인. 조별 비포어 안내 확인.","finish":"내일 들고 갈 물품과 현장 인수자가 연결된 큐시트 한 버전을 공유.","remaining":9},{"date":"2026-11-13T00:00","title":"금 · 행사 1일차","morning":"팀별 도착·픽업·인쇄·장비 최종 확인. 김밥/간식/야식 수령과 지연 대비 교대 확인.","afternoon":"17:00 등록, 18:00~19:00 저녁. 19:10 입장 전 수거함·늦참 김밥·등록대 인계 확인.","evening":"19:30 집회 → 21:30 강의 → 22:20 퀴즈 → 22:30 야식·영누크 → 23:30 GBS. 팀 정산 금요일 밤 마감.","finish":"17:00 전에 등록대·강당 인계. 자정 이후 소등/캠모는 금요일 큐시트 끝에서 확인.","remaining":10},{"date":"2026-11-14T00:00","title":"토 · 행사 2일차","morning":"01:00 강당 종료·최대 02:30 캠모. 08:30 단풍데이트, 09:20 복귀, 09:30 레크.","afternoon":"11:00 점심 예정. 12:00 퇴실과 폐회 동시 운영. 12:15 찬양 이후 말씀·마침 인계.","evening":"시설 원복·열쇠·분실물·쪽지 회수 확인 후 귀가. 누락한 정산 증빙을 팀별로 정리.","finish":"예배 시작 전 짐·열쇠 인계. 해산·강당 철수 시각은 확정본을 사용.","remaining":7},{"date":"2026-11-15T00:00","title":"일 · 후속 정리","morning":"팀별 영수증·건별 내역·합계와 수진 간사님 수신을 대조.","afternoon":"누가회 요청 정리일에 맞춰 추가 지출·누락 항목 확인. 분실물과 사진 인수 목록 정리.","evening":"남은 인계만 담당에게 기록. 사진 공유는 확정한 범위를 따른다.","finish":"정산 전달·분실물 인수 상태를 남긴다.","remaining":2}],"tasks":[{"id":"T01","date":"2026-11-09T00:00","deadline":"실행 기록","team":"디렉터","title":"조장 사전모임 진행 및 조배정 명단 전달","owner":"나단·해은","ownerBasis":"11/7 보고","status":"완료","criteria":"11/7 모임 진행 및 조장방 명단 전달 보고","memo":null,"source":"A §2"},{"id":"T02","date":"2026-11-09T00:00","deadline":"실행 기록","team":"조장","title":"조별방 개설 및 첫 공지","owner":"각 조장","ownerBasis":"조장방 공지","status":"완료","criteria":"18조 개설 완료 보고 확인","memo":null,"source":"A §2"},{"id":"T03","date":"2026-11-09T00:00","deadline":"실행 기록","team":"디렉터","title":"조장·진행팀 줌 기도회","owner":"수진 간사","ownerBasis":"진행 확인","status":"완료","criteria":"11/8 진행 보고 및 사후 대화 확인","memo":null,"source":"A §2"},{"id":"T04","date":"2026-11-09T00:00","deadline":"실행 기록","team":"캠퍼스","title":"동일 출발지 참가자 편성 요청 게시","owner":"나단","ownerBasis":"11/9 게시","status":"완료","criteria":"11/9 18:21 캠대표방 요청 게시","memo":null,"source":"A §2"},{"id":"T05","date":"2026-11-09T00:00","deadline":"실행 기록","team":"홍보","title":"현수막 주문","owner":"홍보팀","ownerBasis":"11/7 보고","status":"완료","criteria":"주문 보고 확인. 수령·설치는 T34·T52","memo":null,"source":"A §2"},{"id":"T06","date":"2026-11-09T00:00","deadline":"실행 기록","team":"디렉터","title":"집회 선물 구매","owner":"해은","ownerBasis":"11/9 보고","status":"완료","criteria":"드립백 3개·원두 250g 구매 보고. 전달 T25","memo":null,"source":"A §2"},{"id":"T07","date":"2026-11-09T00:00","deadline":"실행 기록","team":"디렉터","title":"부스 7번 제출문 준비","owner":"나단","ownerBasis":"직접 배정","status":"완료","criteria":"풍선·종이컵 탑 쌓기 최신 문안 작성. 게시 T36","memo":null,"source":"C"},{"id":"T08","date":"2026-11-10T00:00","deadline":"준비 목표","team":"디렉터","title":"21:30 디렉터 점검 장소·접속 링크 확인","owner":"디렉터팀","ownerBasis":"팀 협의","status":"미정","criteria":"장소 또는 링크, 참석 범위와 안건이 공유됨","memo":null,"source":"A §1"},{"id":"T09","date":"2026-11-10T00:00","deadline":"준비 목표","team":"조장","title":"20문 20답과 조별방 묵상 안내 점검","owner":"각 조장","ownerBasis":"조장방 공지","status":"진행","criteria":"14조 전원 보고 외 조별 완료·미응답 확인. 조장별 네 컷·본문 안내","memo":null,"source":"A §2, B p.12"},{"id":"T10","date":"2026-11-10T00:00","deadline":"예정","team":"기획","title":"비포어 공지 예약·게시 확인","owner":"해은","ownerBasis":"11/9 조율","status":"진행","criteria":"개역개정 적용 및 11/10 게시 시각·조별방/인스타 담당 확인","memo":null,"source":"A §2"},{"id":"T11","date":"2026-11-10T00:00","deadline":"준비 목표","team":"회계등록","title":"추가등록·중복 정정과 입금 대조","owner":"회등팀·디렉터","ownerBasis":"팀 협의","status":"진행","criteria":"중복 5조로 정정, 13조·5조 추가 각 1명 및 두 번째 입금 확인","memo":null,"source":"A §2"},{"id":"T12","date":"2026-11-10T00:00","deadline":"준비 목표","team":"회계등록","title":"공통 명단 버전 확정 및 팀 전달","owner":"회등팀·디렉터","ownerBasis":"팀 협의","status":"진행","criteria":"최신 전체·숙박·금저녁·김밥·토점심·학교별 집계와 조장/팀 수신 확인","memo":null,"source":"A §1–2"},{"id":"T13","date":"2026-11-10T00:00","deadline":"준비 목표","team":"회계등록","title":"부분참·트랙·회비 예외 점검","owner":"회등팀","ownerBasis":"팀 배정","status":"확인 필요","criteria":"캠대표 경유·영누크 접수, 취소·환불·미입금, 교통비 증빙 안내 확인","memo":null,"source":"A §2, B p.07"},{"id":"T14","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"디렉터","title":"청춘산장 방별 정원과 최신 숙소 배치안 확정","owner":"디렉터·회등팀","ownerBasis":"팀 협의","status":"진행","criteria":"5인 표기 방 최대 6명 반영. 학교/방별 인원·예비 자리·전달 이력 확인","memo":null,"source":"A §1–2"},{"id":"T15","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"디렉터","title":"참가자 공지 카드 문구·배포 채널 검토","owner":"나단·해은·수진 간사","ownerBasis":"11/9 조율","status":"진행","criteria":"김밥 신청자·수건 수량·세면도구·기도카드·토 점심 표기 검토. 나눔질문 별도","memo":null,"source":"A §1, E"},{"id":"T16","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"디렉터","title":"PPT 수합 마감·승인·배포자 정하기","owner":"나단","ownerBasis":"기존 회의","status":"확인 필요","criteria":"수합처·파일명·마감·승인자 확정. 재생은 근우에게 별도 인계","memo":null,"source":"B p.13–14"},{"id":"T17","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"회계등록","title":"등록대·식권·기도카드·김밥 인수인계","owner":"은성·정은(등록·방 안내)","ownerBasis":"기존 회의","status":"확인 필요","criteria":"17시 등록 위치·마감·교대와 배부품별 수량·인계자, 늦참 등록 담당 확인","memo":null,"source":"B p.01·07, A §2"},{"id":"T18","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"디렉터","title":"금요 집회 입장·기도카드 수거와 교차 배부","owner":"미정","ownerBasis":"개인 미배정","status":"미정","criteria":"19:10 입장, 수거함 2개, 수거→운반→배부 인수자 및 찬양 큐 확정","memo":null,"source":"B p.01·15"},{"id":"T19","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"시설","title":"영누크 대체 공간·장비·강사 이동 확정","owner":"미정","ownerBasis":"디렉터·시설 협의","status":"미정","criteria":"22:30 병행 공간, 이상협 선생님 이동 시각·인솔·마이크·마감 담당","memo":null,"source":"B p.03"},{"id":"T20","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"시설","title":"야식 식당 사용과 온수·폐기 인계","owner":"미정","ownerBasis":"시설·양식 협의","status":"미정","criteria":"사용 허용 시간, 닭강정 수령, 라면 온수와 국물·잔반 담당 확정","memo":null,"source":"B p.02·09"},{"id":"T21","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"시설","title":"01:00 강당 종료·02:30 캠모 마감 동선","owner":"시설팀·캠대표","ownerBasis":"팀 협의","status":"확인 필요","criteria":"캠퍼스별 장소·열쇠·소음 안내와 종료 점검자 확정","memo":null,"source":"B p.03·13"},{"id":"T22","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"기획","title":"18조 레크 10부스 순환 확정","owner":"기획팀","ownerBasis":"팀 배정","status":"확인 필요","criteria":"50분 실운영 기준 방문 수·동시 수용·대기·이동·점수 마감·우천안 결정","memo":null,"source":"B p.04·11"},{"id":"T23","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"찬양","title":"금요일 세팅·리허설과 저녁 동선 정리","owner":"찬양팀장","ownerBasis":"팀 협의","status":"확인 필요","criteria":"16시 세팅·18:00~19:10 연습 기록을 찬양팀과 재확인. 식사·입장과 충돌 해소","memo":null,"source":"B p.15"},{"id":"T24","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"시설","title":"토요일 점심·짐 반출·열쇠·강당 사용 확인","owner":"미정","ownerBasis":"시설·양식·디렉터 협의","status":"미정","criteria":"11시 배식 승인, 짐보관/반출·미퇴실 담당, 13시 강당·철수 조건 확인","memo":null,"source":"B p.05"},{"id":"T25","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"디렉터","title":"금요 집회 역할과 강사 선물 전달 순서","owner":"해은(대표기도)·나단(봉독·소개)","ownerBasis":"11/9 개인톡","status":"진행","criteria":"개인 역할 반영. 말씀요약 공모 안내·선물 전달 담당/시점 확정","memo":null,"source":"A §1–2, B p.01"},{"id":"T26","date":"2026-11-10T00:00","deadline":"21:30 점검","team":"디렉터","title":"폐회 강사·순서·시상·사진·귀가 큐 확정","owner":"디렉터팀","ownerBasis":"팀 협의","status":"확인 필요","criteria":"12:15 찬양 이후 말씀·시상·사진 배치 및 실제 해산 시각 확정","memo":null,"source":"B p.05"},{"id":"T27","date":"2026-11-10T00:00","deadline":"준비 목표","team":"조장","title":"금 23:30 GBS 부분참 조장 대행 지정","owner":"해당 조장·디렉터","ownerBasis":"팀 협의","status":"확인 필요","criteria":"2·9·13·15조 참석·대행·인수자, 최종 명단 연락 누락 수정 확인","memo":null,"source":"B p.03, D"},{"id":"T28","date":"2026-11-10T00:00","deadline":"준비 목표","team":"기획","title":"조모임 진행안·종료 신호 확정","owner":"성준(리드)·하윤(안)·각 조장(나눔)","ownerBasis":"기존 회의","status":"확인 필요","criteria":"말씀 질문 0~2, 결단 포스트잇·짝기도·마감 신호와 축복송 담당 확정","memo":null,"source":"B p.03·12"},{"id":"T29","date":"2026-11-10T00:00","deadline":"준비 목표","team":"기획","title":"말씀요약 공모의 안내·제출·심사 확정","owner":"미정","ownerBasis":"기획·디렉터 협의","status":"미정","criteria":"첫 집회/공동체 강의 범위, 제출 경로·마감·심사·가산점/시상 확정","memo":null,"source":"B p.12"},{"id":"T30","date":"2026-11-10T00:00","deadline":"준비 목표","team":"양식","title":"김밥 최종 수량·발주·픽업·인수 확정","owner":"양식팀","ownerBasis":"팀 배정","status":"진행","criteria":"37줄·약 40줄 안을 최신 신청으로 재검토. 업체·픽업자·도착·등록대 인수 확인","memo":null,"source":"A §2"},{"id":"T31","date":"2026-11-11T00:00","deadline":"오전 예정","team":"디렉터","title":"청춘산장 방배치·식수·운영 조건 통화","owner":"수진 간사","ownerBasis":"11/9 대화","status":"대기","criteria":"확정 방별 인원안으로 통화하고 정원·식수·식당·퇴실 조건 회신 기록","memo":null,"source":"A §1, B p.05"},{"id":"T32","date":"2026-11-11T00:00","deadline":"오전 제안","team":"디렉터","title":"검토한 참가자 공지 배포","owner":"미정","ownerBasis":"배포 담당 확인","status":"대기","criteria":"승인본 및 조별방 전달 경로 확인. 나눔질문은 합의한 시점에 별도 전달","memo":null,"source":"A §1"},{"id":"T33","date":"2026-11-11T00:00","deadline":"준비 목표","team":"홍보","title":"학교별 수량 반영 및 인쇄물 납품 확인","owner":"홍보팀","ownerBasis":"팀 배정","status":"진행","criteria":"명찰·가이드북·기도카드·조 팻말 최종 파일, 수량, 수령일과 등록대 인수자","memo":null,"source":"A §2, B p.08"},{"id":"T34","date":"2026-11-11T00:00","deadline":"준비 목표","team":"홍보","title":"현수막 수령 시각·설치 인계 정하기","owner":"홍보팀","ownerBasis":"팀 배정","status":"확인 필요","criteria":"주문물 수령 확인, 설치 시간과 담당 확보","memo":null,"source":"A §2, B p.08"},{"id":"T35","date":"2026-11-11T00:00","deadline":"11/11 마감","team":"기획","title":"10부스 배점·시연·실측 시간 취합","owner":"각 부스 담당·성준 취합","ownerBasis":"섬김이방 배정","status":"진행","criteria":"100점 배점·실측·준비물·예산 댓글 확인. 레크 10부스 탭에서 누락 확인","memo":null,"source":"B p.11, A §1"},{"id":"T36","date":"2026-11-11T00:00","deadline":"11/11 마감","team":"기획","title":"7번 풍선·종이컵 탑 실측 및 게시","owner":"나단","ownerBasis":"직접 배정","status":"진행","criteria":"15개 5층·10개 4층 실측, 풍선/컵 재고, 2~4번 댓글 게시 증빙 확인","memo":null,"source":"C, A §1"},{"id":"T37","date":"2026-11-11T00:00","deadline":"준비 목표","team":"시설","title":"사랑의 쪽지 재고·작성·설치 준비","owner":"시설팀","ownerBasis":"팀 배정","status":"진행","criteria":"봉투 종류 혼용 반영. 최신 명단으로 표기 누락 확인, 현장 수령·회수 방식 공유","memo":null,"source":"A §2, B p.13"},{"id":"T38","date":"2026-11-11T00:00","deadline":"준비 목표","team":"기획","title":"단풍데이트 매칭·우천·복귀 동선 확인","owner":"기획팀·시설팀","ownerBasis":"팀 배정","status":"확인 필요","criteria":"타교 즉석 매칭, 질문지, 홀수·늦참 대응과 09:20 집결 위치·우천 대안 확정","memo":null,"source":"B p.04"},{"id":"T39","date":"2026-11-11T00:00","deadline":"준비 목표","team":"양식","title":"야식·아침간식·티테이블 발주 확정","owner":"양식팀","ownerBasis":"팀 배정","status":"진행","criteria":"18조·최신 식수 기준 닭강정/라면/빵·우유·두유 수량, 픽업·온수·보관 확인","memo":null,"source":"A §2, B p.09–10"},{"id":"T40","date":"2026-11-11T00:00","deadline":"준비 목표","team":"캠퍼스","title":"캠퍼스별 공동 출발과 도착 계획 회수","owner":"각 캠대표","ownerBasis":"11/9 요청","status":"진행","criteria":"같은 출발지 편성·탑승 인원·도착 예정·늦참 전달 경로 확인","memo":null,"source":"A §2"},{"id":"T41","date":"2026-11-11T00:00","deadline":"준비 목표","team":"기획","title":"비포어 게시 및 조별방 안내 확인","owner":"해은·각 조장","ownerBasis":"11/9 조율·기존 운영","status":"대기","criteria":"당일 승인 카드·본문 게시와 조별 묵상 안내 여부 확인","memo":null,"source":"A §2, B p.12"},{"id":"T42","date":"2026-11-11T00:00","deadline":"준비 목표","team":"디렉터","title":"공지용 찬양 플레이리스트 배포 시점 정하기","owner":"미정","ownerBasis":"디렉터·찬양 협의","status":"미정","criteria":"최종 링크·버전·게시 담당과 시점 확인","memo":null,"source":"A §2"},{"id":"T43","date":"2026-11-12T00:00","deadline":"준비 목표","team":"양식","title":"장보기·수령과 식권함 포장","owner":"양식팀","ownerBasis":"식권함 배정 확인","status":"진행","criteria":"식권함·컵/젓가락·냉장품·온수·예비분 라벨링. 늦참 중 대행자 지정","memo":null,"source":"A §2, B p.09"},{"id":"T44","date":"2026-11-12T00:00","deadline":"준비 목표","team":"홍보","title":"등록대 묶음 포장 및 학교별 수량 대조","owner":"홍보·회등팀","ownerBasis":"기존 회의","status":"확인 필요","criteria":"명찰+식권 및 기도카드, 가이드북·팻말을 최종 집계와 대조해 인계","memo":null,"source":"A §2, B p.07–08"},{"id":"T45","date":"2026-11-12T00:00","deadline":"준비 목표","team":"기획","title":"퀴즈·조모임·질문지·공모 자료 확정","owner":"하윤(퀴즈 PPT)·기획팀","ownerBasis":"기존 회의","status":"진행","criteria":"퀴즈 정답·스크린·조장방 운영, 질문지/포스트잇, 십자말풀이 채택·인쇄 확인","memo":null,"source":"A §2, B p.02·12"},{"id":"T46","date":"2026-11-12T00:00","deadline":"준비 목표","team":"디렉터","title":"PPT 최종본 묶기 및 현장 재생 테스트","owner":"나단(수합)·근우(금요 송출)","ownerBasis":"기존 회의","status":"확인 필요","criteria":"슬라이드·가사·음원·영상·오프라인 백업 및 전환 담당 인계","memo":null,"source":"B p.13–14"},{"id":"T47","date":"2026-11-12T00:00","deadline":"준비 목표","team":"디렉터","title":"공동 MC 리허설과 지연 시 이동 큐","owner":"나단·해은","ownerBasis":"기존 회의","status":"확인 필요","criteria":"22:20~22:30 진행 리허설, 정답 확인·스크린·식당 이동 신호 배정","memo":null,"source":"B p.02"},{"id":"T48","date":"2026-11-12T00:00","deadline":"준비 목표","team":"시설","title":"시설·방·밤모임·우천 지도/표식 포장","owner":"시설팀","ownerBasis":"팀 배정","status":"확인 필요","criteria":"안내 지도, 방·캠퍼스 표식, 열쇠, 기도함 2개, 조명·온수·안전 물품 점검","memo":null,"source":"B p.03·13"},{"id":"T49","date":"2026-11-12T00:00","deadline":"준비 목표","team":"디렉터","title":"팀별 당일 집결·대체·공유본 고정","owner":"디렉터팀","ownerBasis":"팀 협의","status":"확인 필요","criteria":"팀 도착, 늦참 교대, 표식·복장, 강사 도착과 연락 경로, 승인 큐시트 버전 공유","memo":null,"source":"B p.01·14, D F00"},{"id":"T50","date":"2026-11-12T00:00","deadline":"준비 목표","team":"찬양","title":"콘티·싱어·세션·음향·축복송 최종 인계","owner":"찬양팀","ownerBasis":"팀 배정","status":"확인 필요","criteria":"금·토 콘티, 싱어 2팀·세션, 리허설, GBS 축복송/건반 및 기도회 신호 확인","memo":null,"source":"B p.15"},{"id":"T51","date":"2026-11-12T00:00","deadline":"준비 목표","team":"기획","title":"11/12 비포어 안내와 미확인 조 확인","owner":"해은·각 조장","ownerBasis":"기존 운영","status":"대기","criteria":"배포 일정에 맞춰 카드·본문/묵상 안내 확인. 누락 조만 후속 점검","memo":null,"source":"A §2, B p.12"},{"id":"T52","date":"2026-11-13T00:00","deadline":"등록 전","team":"시설","title":"강당·등록대·식당 세팅과 설치","owner":"시설·홍보·디렉터·회등","ownerBasis":"기존 회의","status":"대기","criteria":"조별 의자·팻말, 현수막·쪽지, 기도함, 화면·마이크, 이동 안내 설치","memo":null,"source":"B p.01·08·13"},{"id":"T53","date":"2026-11-13T00:00","deadline":"등록 17:00","team":"회계등록","title":"등록대 운영과 숙소·늦참 안내","owner":"은성·정은(등록·방 안내)","ownerBasis":"기존 회의","status":"대기","criteria":"공통 명단·회비/부분참·조·숙소 확인, 명찰·식권·기도카드와 김밥 신청 안내","memo":null,"source":"B p.01·07, A §2"},{"id":"T54","date":"2026-11-13T00:00","deadline":"저녁 18:00","team":"양식","title":"금 저녁 배식·식권·김밥 인계","owner":"이진·근우(식권·안내) / 양식팀(배식)","ownerBasis":"기존 회의","status":"대기","criteria":"학교별 배식·식권함, 김밥 신청자 수량과 등록대 도착·수령자, 잔반 처리","memo":null,"source":"B p.01, A §2"},{"id":"T55","date":"2026-11-13T00:00","deadline":"입장 19:10","team":"디렉터","title":"기도카드 수거·기도회 교차 배부","owner":"미정","ownerBasis":"현장 인수자 확인","status":"대기","criteria":"수거함 2개→운반→20:45 이후 찬양 신호에 배부 완료","memo":null,"source":"B p.01·15"},{"id":"T56","date":"2026-11-13T00:00","deadline":"집회 19:30","team":"디렉터","title":"금요 집회 봉독·소개·대표기도·송출","owner":"해은·나단 / 근우·지우(송출·조명)","ownerBasis":"개인톡·기존 회의","status":"대기","criteria":"찬양25·말씀50·기도25분. 강사 자료·마이크·선물 및 공모 큐 확인","memo":null,"source":"A §1, B p.01"},{"id":"T57","date":"2026-11-13T00:00","deadline":"21:10 전환","team":"양식","title":"다과 세팅과 공동체 강의 인계","owner":"양식팀(다과) / 디렉터(강사)","ownerBasis":"기존 회의","status":"대기","criteria":"다과·온수 준비, 21:30 강의 재집결, 이상협 선생님 화면·시간 신호","memo":null,"source":"B p.02·09"},{"id":"T58","date":"2026-11-13T00:00","deadline":"22:20 퀴즈","team":"기획","title":"퀴즈 진행·야식 순차 이동","owner":"나단·해은(공동 MC)","ownerBasis":"기존 회의","status":"대기","criteria":"조장방 선착순 정답 확인, 1조씩 이동·후반 지연 대응, 식당 인계","memo":null,"source":"B p.02"},{"id":"T59","date":"2026-11-13T00:00","deadline":"22:30 병행","team":"시설","title":"야식 및 영누크 트랙 분기·인수","owner":"미정","ownerBasis":"공간·담당 재확인","status":"대기","criteria":"학생/영누크 안내 분리, 음식 배분·공간·강사 인계, 온수·폐기 운영","memo":null,"source":"B p.02–03"},{"id":"T60","date":"2026-11-13T00:00","deadline":"23:30 GBS","team":"기획","title":"조모임 질문·결단·짝기도 운영","owner":"성준·각 조장","ownerBasis":"기존 회의","status":"대기","criteria":"조별 자리·질문 0~2·결단 게시/짝기도, 대행 배치, 종료 신호","memo":null,"source":"B p.03·12"},{"id":"T61","date":"2026-11-13T00:00","deadline":"금요일 밤 마감","team":"전 팀","title":"팀별 지출 정산 자료 제출","owner":"각 팀 지출 담당","ownerBasis":"11/9 공지","status":"대기","criteria":"지출 완료 후 영수증 사진·건별 내역·합계·입금 정보 수진 간사님에게 전달","memo":null,"source":"A §2"},{"id":"T62","date":"2026-11-14T00:00","deadline":"01:00·02:30","team":"시설","title":"심야 소등·캠모 이동 및 종료","owner":"시설팀·각 캠대표","ownerBasis":"기존 운영","status":"대기","criteria":"01:00 강당 소등·난방 종료. 지정 캠모 장소로 인계, 최대 02:30 종료","memo":null,"source":"B p.03·13"},{"id":"T63","date":"2026-11-14T00:00","deadline":"아침 현장","team":"기획","title":"간식·즉석 매칭·산책과 복귀","owner":"기획·양식·시설","ownerBasis":"기존 회의","status":"대기","criteria":"08:30 시작·09:20 복귀, 늦참/홀수·우천 대응 및 출구 간식 배부","memo":null,"source":"B p.04"},{"id":"T64","date":"2026-11-14T00:00","deadline":"09:30 레크","team":"기획","title":"10부스 개장·진행·점수 마감","owner":"기획팀·부스 담당 / 회등 지원","ownerBasis":"팀 배정","status":"대기","criteria":"18조 순환·대기/동시 운영, 50분 실운영, 점수 인계·철거","memo":null,"source":"B p.04·11"},{"id":"T65","date":"2026-11-14T00:00","deadline":"점심 11:00 예정","team":"양식","title":"점심 배식 및 퇴실 안내 전달","owner":"양식·회등·디렉터","ownerBasis":"기존 운영","status":"대기","criteria":"승인된 점심 시각·식수·식권으로 배식, 방·짐·폐회 전환 안내","memo":null,"source":"B p.05·07"},{"id":"T66","date":"2026-11-14T00:00","deadline":"12:00 퇴실","team":"시설","title":"짐 반출·열쇠 반납·미퇴실 확인","owner":"시설팀·각 조장(확인)","ownerBasis":"기존 운영","status":"대기","criteria":"개인짐·분실물·열쇠와 미퇴실 확인 후 디렉터에 예배 합류 인계","memo":null,"source":"B p.05·13"},{"id":"T67","date":"2026-11-14T00:00","deadline":"폐회 12:00","team":"디렉터","title":"폐회 진행·시상·사진·귀가 안내","owner":"디렉터·찬양·기획·홍보","ownerBasis":"팀 협의","status":"대기","criteria":"12:15 찬양 인계, 확정 강사·시상·사진·귀가 안내 순서 실행","memo":null,"source":"B p.05·15"},{"id":"T68","date":"2026-11-14T00:00","deadline":"폐회 직후","team":"시설","title":"시설 원복·쪽지 회수·분실물 인계","owner":"시설·홍보·양식","ownerBasis":"기존 운영","status":"대기","criteria":"쪽지 수령 안내, 공용공간/장비/잔반 정리, 원장 또는 숙소 담당 인계","memo":null,"source":"B p.05·13"},{"id":"T69","date":"2026-11-15T00:00","deadline":"정리 요청일","team":"디렉터","title":"정산 누락·후속 지출 확인","owner":"수진 간사·팀별 지출 담당","ownerBasis":"11/9 공지","status":"대기","criteria":"11/13 밤 제출분 대조. 행사 중 추가 영수증·누락분은 정산 담당과 마무리","memo":null,"source":"A §2"},{"id":"T70","date":"2026-11-15T00:00","deadline":"준비 목표","team":"홍보","title":"사진·기록·분실물 후속 정리","owner":"홍보팀·시설팀","ownerBasis":"팀 협의","status":"대기","criteria":"공유 범위 확인 후 기록 수합, 분실물 인수 목록과 안내 경로 확인","memo":null,"source":"B p.05·08"}],"friday":[{"id":"F00","start":null,"end":"2026-11-13T17:00","timing":"준비 목표","title":"등록 전 팀별 세팅","place":"강당·등록대·식당","owner":"디렉터·시설·회등·홍보","ownerBasis":"팀 협의","action":"집결·교대 확인. 의자·팻말·현수막·쪽지·기도함·등록 묶음·화면 점검.","handoff":"등록 17시 기준. 세팅 시작과 인수자는 확정본 적용.","links":"T49·T52","source":"B p.01·08·13"},{"id":"F00A","start":"2026-11-13T16:00","end":null,"timing":"재확인","title":"찬양 세팅 시각 대조","place":"강당","owner":"찬양팀장·시설","ownerBasis":"기존 회의","action":"16시 세팅 기록을 찬양팀과 확인. 악기·마이크·음향·동선 점검.","handoff":"리허설 시간·팀 식사 순서 확정 후 적용.","links":"T23·T50","source":"B p.15"},{"id":"F01","start":"2026-11-13T17:00","end":null,"timing":"기준안","title":"등록 시작","place":"등록대 위치 확인","owner":"은성·정은(등록·방 안내)","ownerBasis":"기존 회의","action":"명단·입금·숙소·조 확인. 명찰·식권·기도카드 배부. 김밥 신청자 안내.","handoff":"양식→등록대 김밥 실물 인계, 등록 마감·늦참 교대 확인.","links":"T17·T53","source":"B p.01·07, A §2"},{"id":"F02","start":"2026-11-13T18:00","end":"2026-11-13T19:00","timing":"기준안","title":"학교별 저녁 배식","place":"식당","owner":"이진·근우(식권·안내) / 양식(배식)","ownerBasis":"기존 회의","action":"금요일 저녁 식권함과 식수 확인. 학교별 입장, 늦참 김밥은 등록대로.","handoff":"19:00 배식 구간 종료, 19:20 식당 마감 기록. 입장 동선 분리.","links":"T54","source":"B p.01, A §2"},{"id":"F02A","start":"2026-11-13T18:00","end":"2026-11-13T19:10","timing":"재확인","title":"찬양 리허설 기록","place":"강당","owner":"찬양팀장","ownerBasis":"기존 회의","action":"기존 기록과 실제 리허설·추가 연습 범위를 대조.","handoff":"저녁 배식 및 19:10 입장과 겹침. 확정 후 팀에 전달.","links":"T23","source":"B p.15"},{"id":"F02B","start":"2026-11-13T19:10","end":null,"timing":"회의 기록","title":"집회 입장·기도카드 수거","place":"강당 입구","owner":"미정","ownerBasis":"수거·운반 인수자 필요","action":"조별 착석 안내, 기도함 2개로 제출받기.","handoff":"수거 담당→운반 담당→20:45 기도회 배부 담당.","links":"T18·T55","source":"B p.01"},{"id":"F02C","start":"2026-11-13T19:20","end":null,"timing":"회의 기록","title":"저녁 식당 마감","place":"식당","owner":"양식·시설","ownerBasis":"팀 배정","action":"배식·잔반 정리 및 늦참 김밥을 등록대로 인계.","handoff":"집회 안내에 맞춰 이동. 식당 마감 조건 확인.","links":"T54","source":"B p.01–02"},{"id":"F03","start":"2026-11-13T19:30","end":"2026-11-13T19:55","timing":"기준안·산출","title":"금요 집회 · 찬양 25분","place":"강당","owner":"찬양팀 / 근우(송출)·지우(조명)","ownerBasis":"기존 회의","action":"조별 착석과 시작 큐. 콘티·가사·마이크 확인.","handoff":"찬양 종료 신호→집회 진행·강사 마이크.","links":"T50·T56","source":"B p.01·15"},{"id":"F04","start":"2026-11-13T19:55","end":"2026-11-13T20:45","timing":"산출","title":"금요 집회 · 말씀 구간","place":"강당","owner":"해은(대표기도)·나단(봉독·소개) / 장현준 간사(말씀)","ownerBasis":"개인톡·기준안","action":"엡 2:13–22, 4:15–16. 대표기도·봉독·소개는 실제 집회 전환 신호에 맞춤.","handoff":"공모 안내·선물 전달 담당과 시점 확정. 말씀→기도회 인계.","links":"T25·T29·T56","source":"A §1–2, B p.01"},{"id":"F05","start":"2026-11-13T20:45","end":"2026-11-13T21:10","timing":"산출","title":"금요 집회 · 기도회","place":"강당","owner":"수진 간사(찬양 신호) / 카드 배부 미정","ownerBasis":"기존 회의·인수 미정","action":"인도 찬양 한 곡에 카드 교차 배부, 기도 후 종료 신호.","handoff":"등록 때 나눠준 카드의 수거·운반 확인. 양식팀 다과 시작.","links":"T18·T55","source":"B p.01·15"},{"id":"F06","start":"2026-11-13T21:10","end":"2026-11-13T21:30","timing":"기준안","title":"다과·쉬는 시간","place":"티테이블·강당","owner":"양식팀 / 디렉터 재집결","ownerBasis":"기존 회의","action":"음료·다과·온수, 강의 자료와 마이크 전환.","handoff":"21:30 재집결 안내. 다과 준비·지원 인수자 재확인.","links":"T57","source":"B p.02·09"},{"id":"F07","start":"2026-11-13T21:30","end":"2026-11-13T22:10","timing":"기준안","title":"공동체 강의","place":"강당","owner":"이상협 선생님 / 디렉터 진행","ownerBasis":"기준안","action":"강사 소개·시간 신호·화면. 다음 순서 자료 대기.","handoff":"강의 끝난 뒤 영누크 이동 여유와 안내자 확인.","links":"T19·T57","source":"B p.02–03"},{"id":"F08","start":"2026-11-13T22:10","end":"2026-11-13T22:20","timing":"산출","title":"휴식·재집결","place":"강당 주변","owner":"디렉터·기획","ownerBasis":"기존 운영","action":"10분 휴식, 22:20 강당 집결. MC·정답 확인자·퀴즈 PPT 대기.","handoff":"양식팀은 수령·배식 완료 여부를 MC에게 전달.","links":"T45·T47","source":"B p.02"},{"id":"F09","start":"2026-11-13T22:20","end":"2026-11-13T22:30","timing":"기준안","title":"광고·아이스브레이킹·식당 이동","place":"강당 → 식당","owner":"나단·해은(공동 MC) / 하윤(PPT 제작)","ownerBasis":"기존 회의","action":"조장방 선착순 정답 1조씩 이동. 화면 넘김·정답 확인은 별도 배정.","handoff":"식당 허가와 이동시간 확인. 후반 이동은 현장 디렉터 판단.","links":"T20·T58","source":"B p.02"},{"id":"F10","start":"2026-11-13T22:30","end":"2026-11-13T23:30","timing":"기준안","title":"학생 야식·교제","place":"식당 사용 확인","owner":"양식팀·시설팀","ownerBasis":"팀 배정","action":"지정석·닭강정/라면/온수, 이동·보충·잔반 인계.","handoff":"22시 닭강정 도착안 및 식당 사용 허용 범위 확인. 23:30 강당 이동.","links":"T20·T59","source":"B p.02·09"},{"id":"Y01","start":"2026-11-13T22:30","end":"2026-11-14T01:00","timing":"기준안","title":"영누크 공식 트랙 · 병행","place":"대체 공간 확정 필요","owner":"미정","ownerBasis":"디렉터·시설 협의","action":"학생 동선과 분리. 강사 이동, 장비, 야식 배분·종료 담당 확인.","handoff":"독도홀 취소 반영. 장소와 실제 운영 담당 승인 후 적용.","links":"T19·T59","source":"B p.03"},{"id":"F11","start":"2026-11-13T23:30","end":"2026-11-14T01:00","timing":"기준안","title":"조모임 · GBS","place":"강당·조별","owner":"성준(리드)·각 조장(나눔)","ownerBasis":"기존 회의","action":"질문 0~2, 결단 포스트잇, 짝기도. 부분참 조장 대행과 축복송 확인.","handoff":"01:00 전에 정리·퇴장. 종료 안내→시설·캠대표 인계.","links":"T27·T28·T60","source":"B p.03·12"},{"id":"N01","start":"2026-11-14T01:00","end":null,"timing":"운영 제한","title":"강당 사용 종료·캠모 인계","place":"강당 → 배정 공간","owner":"시설팀·각 캠대표","ownerBasis":"기존 운영","action":"조명·난방 종료, 교제 공간과 인원 인계.","handoff":"숙소·식당 취식 제한과 소음 기준 확인.","links":"T21·T62","source":"B p.03·13"},{"id":"N02","start":"2026-11-14T01:00","end":"2026-11-14T02:30","timing":"종료 상한","title":"캠퍼스 모임","place":"캠퍼스별 배정 공간","owner":"각 캠대표 / 종료 확인자 미정","ownerBasis":"기존 운영","action":"학교별 공지에 따라 이동·교제. 최대 02:30 마감.","handoff":"현장 마감 담당 확인, 숙소 귀환·정리.","links":"T21·T62","source":"B p.03"}],"saturday":[{"id":"S00","start":"2026-11-14T07:30","end":null,"timing":"회의 기록","title":"아침간식 준비","place":"배부대 위치 확인","owner":"양식팀","ownerBasis":"기존 회의","action":"빵·우유/두유·예비분, 배부 동선 점검.","handoff":"매칭 후 출구에서 배부. 07:30 팀 시작 재확인.","links":"T43·T63","source":"B p.04·09"},{"id":"S00A","start":"2026-11-14T07:40","end":null,"timing":"회의 기록","title":"기획·디렉터 사전 집결","place":"집결지 확인","owner":"기획·디렉터","ownerBasis":"기존 회의","action":"질문지·매칭표·복귀 안내 준비. 시설은 날씨/안전 점검.","handoff":"나머지 팀 08:00 집결 기록과 장소 재확인.","links":"T38·T63","source":"B p.04"},{"id":"S00B","start":"2026-11-14T08:00","end":"2026-11-14T08:30","timing":"회의 기록","title":"먼저 온 참가자 즉석 매칭","place":"집결지 확인","owner":"기획팀 / 양식·시설 지원","ownerBasis":"기존 회의","action":"타교 기준 짝 매칭, 홀수·늦참 대응 정하기.","handoff":"매칭→양식 출구 배부→산책 이동. 사전 매칭 방식 재확인.","links":"T38·T63","source":"B p.04"},{"id":"S01","start":"2026-11-14T08:30","end":"2026-11-14T09:20","timing":"기준안","title":"단풍데이트 · 아침간식","place":"허용 산책 구역","owner":"기획팀 / 양식·시설 지원","ownerBasis":"팀 배정","action":"질문지·짝 안내, 빵·우유/두유 배부, 기상·귀환 동선 관리.","handoff":"09:20 복귀 지점으로. 우천안과 잔류 담당 확인.","links":"T38·T63","source":"B p.04"},{"id":"S02","start":"2026-11-14T09:20","end":"2026-11-14T09:30","timing":"기준안·산출","title":"복귀·레크 전환","place":"집결지 → 부스","owner":"기획·시설·회등","ownerBasis":"팀 배정","action":"복귀 인원 확인, 팀별 첫 부스·이동 경로 안내.","handoff":"09:30 부스 개장. 회등은 진행 관리·인원 지원.","links":"T22·T64","source":"B p.04·11"},{"id":"S03","start":"2026-11-14T09:30","end":"2026-11-14T10:30","timing":"기준안","title":"레크 10부스","place":"부스 배치 확인","owner":"각 부스 담당·기획 / 회등 지원","ownerBasis":"섬김이방 배정","action":"18조 순환·100점 채점. 실운영 50분, 전체 편성 60분.","handoff":"방문 수·동시 수용·남는 10분 배치와 종료 신호 확정.","links":"T22·T35·T64","source":"B p.04·11, C"},{"id":"S04","start":"2026-11-14T10:30","end":"2026-11-14T11:00","timing":"기준안","title":"휴식·점수 취합·점심 전환","place":"강당·식당·숙소","owner":"기획·시설·양식·디렉터","ownerBasis":"기존 운영","action":"부스 회수·점수 마감, 식사·짐 반출·12시 퇴실 안내.","handoff":"채점→시상 담당. 시설팀 짐 보관 장소·인수자 준비.","links":"T64·T65·T66","source":"B p.04–05"},{"id":"S05","start":"2026-11-14T11:00","end":"2026-11-14T12:00","timing":"예정","title":"점심·짐 반출","place":"식당·숙소","owner":"양식·회등 / 시설 짐 안내","ownerBasis":"기존 운영","action":"최종 식수·식권 기준 배식. 개인짐·열쇠 회수, 숙소를 먼저 비우도록 안내.","handoff":"11시 배식 승인·보관 위치 확인. 폐회 동시 업무 분리.","links":"T24·T65·T66","source":"B p.05·07"},{"id":"S06","start":"2026-11-14T12:00","end":null,"timing":"기준안","title":"숙소 퇴실 마감 · 동시 업무","place":"숙소·짐보관처","owner":"시설팀·각 조장","ownerBasis":"기존 운영","action":"열쇠·방·짐·미퇴실 확인 후 디렉터에게 예배 합류 인계.","handoff":"폐회 시작 전에 짐 반출. 분실물은 인수자에게 전달.","links":"T66","source":"B p.05·13"},{"id":"S07","start":"2026-11-14T12:00","end":"2026-11-14T12:15","timing":"기준안·산출","title":"폐회예배 · 찬양 15분","place":"강당","owner":"찬양팀·디렉터 / 시설 음향","ownerBasis":"기존 회의","action":"예배 착석, 콘티·화면·음향. 찬양 종료 신호.","handoff":"12:15 말씀·마침 진행자에게 인계.","links":"T50·T67","source":"B p.05·15"},{"id":"S08","start":"2026-11-14T12:15","end":"2026-11-14T13:00","timing":"세부 미정","title":"폐회 말씀·시상·마침","place":"강당","owner":"디렉터팀 / 강사·시상·사진 담당 확인","ownerBasis":"팀 협의","action":"홍보 공유 본문 히 10:23–25. 강사 표기와 시상·단체사진 순서 확정 후 진행.","handoff":"13:00은 기준안 구간 끝. 강당 사용 승인·해산 시각 확인.","links":"T24·T26·T67","source":"B p.05"},{"id":"S09","start":null,"end":null,"timing":"준비 목표","title":"폐회 후 철수·귀가","place":"강당·숙소·공용공간","owner":"시설·홍보·양식·디렉터","ownerBasis":"기존 운영","action":"장비·게시물·사랑의 쪽지·잔반·분실물 회수, 숙소 원복 인계.","handoff":"실제 종료·철수 시각에 맞춰 귀가 안내.","links":"T68","source":"B p.05·13"}],"booths":[{"id":1,"title":"성경 노가다 퀴즈","owner":"하성준","criteria":"11/4 배정. 문항·정답지·채점 기준을 준비한다.","minutes":null,"status":"확인 필요","memo":null},{"id":2,"title":"성경 십자말풀이","owner":"이해은","criteria":"16~19번 ‘넌센스’ 표기 수정 이미지 공유. 최종 채택·인쇄 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":3,"title":"주제 관련 그림·사진 찍기","owner":"박주현","criteria":"촬영 구역·제출 방법·우천 대안과 채점 기준 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":4,"title":"신문으로 전신갑주 만들기","owner":"이진","criteria":"신문·고정 도구·정리 방법과 조별 작업 면적 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":5,"title":"성경 장면 정지화면","owner":"이근우","criteria":"문제·제한 시간·참여 방법·채점 기준 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":6,"title":"고깔 쓰고 공 넣기","owner":"정하윤","criteria":"시야 제한 동선, 안전선, 공 회수와 채점 기준 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":7,"title":"풍선 띄우며 종이컵 탑 쌓기","owner":"조나단","criteria":"15컵 5층, 바람 등 상황에 따라 10컵 4층. 조당 경기 2분. 성공 인원당 20점, 최대 100점.","minutes":null,"status":"진행","memo":null},{"id":8,"title":"초성게임 물건 가져오기","owner":"배동주","criteria":"문항·허용 구역·금지 물품·복귀 시간과 채점 기준 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":9,"title":"멀리갈리","owner":"정지우","criteria":"준비물·시연 규칙·대기/진행 구역과 채점 기준 확인.","minutes":null,"status":"확인 필요","memo":null},{"id":10,"title":"등에 그림 이어 그리기","owner":"김정은","criteria":"도안·필기구·전달 순서와 채점 기준 확인.","minutes":null,"status":"확인 필요","memo":null}],"boothNotes":["11/11 마감 · 100점 배점과 실측 시간을 톡게시판 댓글에서 확인합니다. 실측 전에는 시간을 비워 둡니다. [B p.11, C]","7번 · 2~3명씩 교대, 같은 사람 연속 풍선 터치 금지, 컵을 놓은 뒤 1초 유지. 안내·정리 포함 예상 3~4분. [C]"],"sources":[["A","11/9 징수 카톡 통합 분석 · §1 나단 준비, §2 팀별 변경. 단체방 및 지정 개인톡의 운영 내용."],["B","11/8 운영안내 PDF 통합점검 · p. 표기는 기존 PDF 쪽과 대조한 위치. 기존 회의 배정 및 현장 시간."],["C","11/9 7번부스 풍선종이컵탑 · 최신 규칙·배점·준비물. 소요 시간 3~4분은 시연 전 추정."],["D","11/8 체크리스트·큐시트 점검 및 기존 큐시트 · 기존 순서·조장 대행·현장 인계 확인 항목."],["E","11/9 참가자 공지 카드 · 기존 이미지 문구와 개인톡에서 조율한 수정 대상."]]}</script>
+  <script>(function app() {
+  'use strict';
+
+  const data = JSON.parse(document.getElementById('workbook-data').textContent);
+  const views = {
+    overview: ['개요', 'home'],
+    checklist: ['체크리스트', 'checklist'],
+    cues: ['현장 큐시트', 'clock'],
+    booths: ['레크 부스', 'grid'],
+  };
+  const icons = {
+    stones: '<path d="M2 17h6l2 2H3zM8 12h7l2 2H9zM15 6h6l1 2h-6z"/>',
+    home: '<rect x="3.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="3.5" width="7" height="7" rx="1.2"/><rect x="3.5" y="13.5" width="7" height="7" rx="1.2"/><rect x="13.5" y="13.5" width="7" height="7" rx="1.2"/>',
+    checklist: '<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 4V2.8h6V4M8.5 10l1.3 1.3 2.4-2.4M14.5 10.5h2m-8 5 1.3 1.3 2.4-2.4m2.3 1.6h2"/>',
+    clock: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 1.8"/>',
+    grid: '<path d="M4 6h16v14H4zM4 10h16M8 10v10m8-10v10M3 6l2-3h14l2 3"/>',
+    calendar: '<rect x="3.5" y="5.5" width="17" height="15" rx="2"/><path d="M8 3v5m8-5v5M3.5 10h17"/>',
+    pin: '<path d="M19 9c0 5.4-7 10.5-7 10.5S5 14.4 5 9a7 7 0 1 1 14 0Z"/><circle cx="12" cy="9" r="2.3"/>',
+    check: '<path d="m5 12 4.5 4.5L19 7"/>',
+    alert: '<circle cx="12" cy="12" r="8.5"/><path d="M12 7.5v5m0 3h.01"/>',
+    search: '<circle cx="10.5" cy="10.5" r="5.5"/><path d="m15 15 4 4"/>',
+    close: '<path d="m6 6 12 12M18 6 6 18"/>',
+  };
+  const statuses = ['대기', '진행', '확인 필요', '미정', '완료'];
+  const needsReview = status => status === '확인 필요' || status === '미정';
+  const taskMap = new Map(data.tasks.map(task => [task.id, task]));
+  const cueMap = new Map([...data.friday, ...data.saturday].map(cue => [cue.id, cue]));
+  const boothMap = new Map(data.booths.map(booth => [String(booth.id), booth]));
+  const teams = [...new Set(data.tasks.map(task => task.team))].sort((a, b) => a.localeCompare(b, 'ko'));
+  const freshFilters = () => ({date: '', team: '', status: '', query: ''});
+  const freshRecords = () => ({tasks: {}, booths: {}});
+  const storageKey = `retreat-ops:v1:${data.key}`;
+  const main = document.getElementById('content');
+  const nav = document.getElementById('nav');
+  const dialog = document.getElementById('dialog');
+  const dialogContent = document.getElementById('dialog-content');
+  const now = new Intl.DateTimeFormat('sv-SE', {
+    timeZone: 'Asia/Seoul', year: 'numeric', month: '2-digit', day: '2-digit',
+  }).format(new Date());
+  let records = freshRecords();
+  let storageAvailable = true;
+  let dayIndex = data.days.findIndex(day => dateOnly(day.date) === now);
+  if (dayIndex < 0) dayIndex = 1;
+  let filters = freshFilters();
+  let cueDay = 'friday';
+  let cueQuery = '';
+  let timingFilter = '';
+  let view = readView();
+  let toastTimer;
+  let returnFocus;
+
+  try {
+    const saved = localStorage.getItem(storageKey);
+    if (saved) records = validateRecords(JSON.parse(saved));
+    localStorage.setItem(storageKey, JSON.stringify(records));
+  } catch {
+    storageAvailable = false;
+  }
+
+  function h(value) {
+    return String(value ?? '').replace(/[&<>"']/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;',
+    })[char]);
+  }
+
+  function icon(name, size = 19) {
+    return `<svg aria-hidden="true" width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">${icons[name]}</svg>`;
+  }
+
+  function validateRecords(value) {
+    if (!value || typeof value !== 'object' || Array.isArray(value)) throw new Error('잘못된 기록 형식입니다.');
+    const clean = freshRecords();
+    for (const [kind, catalog] of [['tasks', taskMap], ['booths', boothMap]]) {
+      const group = value[kind];
+      if (!group || typeof group !== 'object' || Array.isArray(group)) throw new Error('잘못된 기록 형식입니다.');
+      for (const [id, row] of Object.entries(group)) {
+        if (!catalog.has(id) || !row || !statuses.includes(row.status) ||
+            typeof row.memo !== 'string' || row.memo.length > 4000) {
+          throw new Error('읽을 수 없는 항목이 포함되어 있습니다.');
+        }
+        clean[kind][id] = {status: row.status, memo: row.memo};
+        if (kind === 'tasks' && statuses.includes(row.beforeDone) && row.beforeDone !== '완료') {
+          clean.tasks[id].beforeDone = row.beforeDone;
+        }
+        if (kind === 'booths') {
+          if (row.minutes !== null && (!Number.isFinite(row.minutes) || row.minutes < 0)) {
+            throw new Error('부스 실측 시간은 0 이상의 숫자로 입력해야 합니다.');
+          }
+          clean.booths[id].minutes = row.minutes;
+        }
+      }
+    }
+    return clean;
+  }
+
+  function updateStorageLabel() {
+    document.getElementById('storage').toggleAttribute('data-warning', !storageAvailable);
+    document.getElementById('storage-label').textContent = storageAvailable ? '이 브라우저에 저장' : '브라우저 저장 제한';
+  }
+
+  function persist(message) {
+    try {
+      localStorage.setItem(storageKey, JSON.stringify(records));
+      storageAvailable = true;
+      notify(message);
+    } catch {
+      storageAvailable = false;
+      notify('이 창에 기록했습니다. 창을 닫기 전에 백업해 주세요.');
+    }
+    updateStorageLabel();
+  }
+
+  function notify(message) {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => { toast.textContent = ''; }, 3600);
+  }
+
+  function dateOnly(value) {
+    return value?.slice(0, 10) ?? '';
+  }
+
+  function shortDate(value) {
+    return `${Number(value.slice(5, 7))}/${Number(value.slice(8, 10))}`;
+  }
+
+  function statusTone(status) {
+    if (status === '완료') return 'done';
+    if (status === '진행') return 'active';
+    return needsReview(status) ? 'warn' : '';
+  }
+
+  function badge(label, tone = '') {
+    return `<span class="badge ${tone}">${h(label)}</span>`;
+  }
+
+  function currentTask(task) {
+    return {...task, ...records.tasks[task.id]};
+  }
+
+  function readView() {
+    const slug = location.hash.slice(1);
+    return Object.hasOwn(views, slug) ? slug : 'overview';
+  }
+
+  function navigate(next) {
+    if (view !== next) {
+      history.pushState(null, '', `#${next}`);
+      view = next;
+      window.scrollTo(0, 0);
+    }
+    render();
+    main.focus({preventScroll: true});
+  }
+
+  function render() {
+    nav.innerHTML = Object.entries(views).map(([id, [label, symbol]]) =>
+      `<button class="nav-item" type="button" data-action="nav" data-id="${id}"${view === id ? ' aria-current="page"' : ''}>${icon(symbol)}<span>${label}</span></button>`
+    ).join('');
+    document.getElementById('breadcrumb').textContent = views[view][0];
+    main.innerHTML = {overview: overviewPage, checklist: checklistPage, cues: cuePage, booths: boothPage}[view]();
+    renderResults();
+  }
+
+  function art() {
+    return `<svg class="hero-art" viewBox="0 0 650 230" preserveAspectRatio="xMaxYMid slice" aria-hidden="true">
+      <defs><linearGradient id="hero-fade"><stop stop-color="#12392e" stop-opacity="0"/><stop offset="1" stop-color="#12392e"/></linearGradient></defs>
+      <path d="M165 230C239 158 264 193 319 141s87-38 126-70S552 19 650 34v196Z" fill="#1e4939"/>
+      <path d="M254 230c74-46 122-22 166-68s120-50 230-38v106Z" fill="#285642"/>
+      <g fill="none" stroke="#80ae88" stroke-opacity=".41">
+        <path d="M126 230C207 177 267 178 312 140S401 96 441 65 531 19 650 33"/>
+        <path d="M154 234c76-47 118-35 171-83s94-41 136-74S553 37 650 48"/>
+        <path d="M190 234c70-38 110-26 160-68s89-39 128-66S572 55 650 68"/>
+        <path d="M223 235c68-26 110-21 160-59s72-32 118-56S583 77 650 85"/>
+        <path d="M277 235c56-21 100-21 142-51s65-30 102-46S607 99 650 105"/>
+        <path d="M332 234c45-14 93-24 137-48s88-58 181-56"/>
+        <path d="M385 234c58-15 104-32 153-57s84-27 112-28"/>
+      </g>
+      <g fill="#d1e2bc">
+        <path d="M278 180c12-5 36-4 47 0l5 6c-13 5-45 5-56 0z" opacity=".66"/>
+        <path d="M357 149c12-4 32-4 41-1l5 5c-12 4-39 5-49 1z" opacity=".73"/>
+        <path d="M429 120c10-4 26-4 35-1l5 4c-10 4-34 4-42 0z" opacity=".8"/>
+        <path d="M498 92c9-3 25-4 32-1l4 3c-9 4-28 4-37 1z" opacity=".88"/>
+        <path d="M563 66c9-2 21-3 26 0l3 3c-8 2-23 2-30 0z"/>
+      </g>
+      <path d="M0 0h170v230H0z" fill="#12392e"/><path d="M169 0h110v230H169z" fill="url(#hero-fade)" transform="translate(448 0) scale(-1 1)"/>
+    </svg>`;
+  }
+
+  function stat(label, symbol, value, unit, note, target, percent = null) {
+    return `<button type="button" class="stat" data-action="stat" data-id="${target}">
+      <span class="stat-label"><span class="stat-icon">${icon(symbol, 16)}</span>${label}</span>
+      <span class="stat-value"><strong>${value}</strong><span>${unit}</span></span>
+      <span class="stat-sub">${note}</span>
+      ${percent === null ? '' : `<span class="meter" aria-hidden="true"><span style="width:${percent}%"></span></span>`}
+    </button>`;
+  }
+
+  function overviewPage() {
+    const tasks = data.tasks.map(currentTask);
+    const completed = tasks.filter(task => task.status === '완료').length;
+    const percent = Math.round(100 * completed / tasks.length);
+    const pending = tasks.filter(task => needsReview(task.status)).length;
+    const day = data.days[dayIndex];
+    const upcoming = tasks.filter(task => task.date === day.date && task.status !== '완료');
+    return `<section class="hero" aria-labelledby="event-title">
+      ${art()}
+      <div class="hero-copy">
+        <div class="kicker">2026 RETREAT DESK</div>
+        <h1 id="event-title">징검다리 수련회</h1>
+        <p>준비부터 현장 인계까지, 오늘 할 일을 한눈에.</p>
+        <div class="hero-meta">
+          <span>${icon('calendar', 15)} 11. 13 (금) – 11. 14 (토)</span>
+          <span>${icon('pin', 15)} 청춘산장리조트</span>
+        </div>
+      </div>
+    </section>
+    <section class="stats" aria-label="운영 현황">
+      ${stat('체크 완료', 'checklist', completed, `/ ${tasks.length}개`, `전체 진행률 ${percent}%`, 'all', percent)}
+      ${stat('확인할 항목', 'alert', pending, '개', '확인 필요 · 미정', 'review')}
+      ${stat('현장 큐', 'clock', cueMap.size, '개', `금요일 ${data.friday.length} · 토요일 ${data.saturday.length}`, 'cues')}
+    </section>
+    <section aria-labelledby="days-heading">
+      <div class="section-head"><h2 id="days-heading">날짜별 준비</h2><span class="muted">11. 09 – 11. 15</span></div>
+      <div class="day-strip" role="group" aria-label="준비 날짜">
+        ${data.days.map((item, index) => `<button type="button" class="day-button" data-action="day" data-id="${index}" aria-pressed="${index === dayIndex}">
+          <strong>${shortDate(item.date)}</strong><span>${['월', '화', '수', '목', '금', '토', '일'][index]}</span></button>`).join('')}
+      </div>
+      <div class="overview-grid">
+        <article class="panel">
+          <div class="panel-head"><h3>${shortDate(day.date)} ${h(day.title)}</h3></div>
+          <div class="agenda">
+            ${[['오전', day.morning], ['오후', day.afternoon], ['저녁·마감', day.evening], ['마무리 기준', day.finish]].map(([label, value], index) =>
+              `<div${index === 3 ? ' class="finish"' : ''}><strong>${label}</strong><p>${h(value)}</p></div>`).join('')}
+          </div>
+        </article>
+        <article class="panel">
+          <div class="panel-head"><h3>남은 체크 <span class="badge">${upcoming.length}</span></h3>
+          <button type="button" class="text-button" data-action="day-tasks">이 날짜 전체 <span aria-hidden="true">→</span></button></div>
+          ${upcoming.length ? upcoming.slice(0, 4).map(taskRow).join('') : '<p class="muted">이 날짜의 준비를 모두 완료했습니다.</p>'}
+        </article>
+      </div>
+    </section>`;
+  }
+
+  function title(kicker, heading, subtitle) {
+    return `<header class="page-head"><p class="page-kicker">${kicker}</p><h1>${heading}</h1><p>${h(subtitle)}</p></header>`;
+  }
+
+  function searchControl(name, value, placeholder) {
+    return `<label class="search">${icon('search', 17)}<input type="search" name="${name}" aria-label="${placeholder}" placeholder="${placeholder}" value="${h(value)}" autocomplete="off"></label>`;
+  }
+
+  function options(items, selected) {
+    return items.map(([value, label]) => `<option value="${h(value)}"${value === selected ? ' selected' : ''}>${h(label)}</option>`).join('');
+  }
+
+  function selectControl(name, label, items, selected) {
+    return `<select name="${name}" aria-label="${label}">${options(items, selected)}</select>`;
+  }
+
+  function checklistPage() {
+    return `${title('PREPARATION', '운영 체크리스트', '날짜·팀·상태로 할 일을 찾고, 항목을 열어 완료 기준과 담당을 확인하세요.')}
+      <div class="toolbar">
+        ${searchControl('query', filters.query, '업무·담당자 검색')}
+        ${selectControl('date', '날짜 필터', [['', '모든 날짜'], ...data.days.map(day => [dateOnly(day.date), shortDate(day.date)])], filters.date)}
+        ${selectControl('team', '팀 필터', [['', '모든 팀'], ...teams.map(team => [team, team])], filters.team)}
+        ${selectControl('status', '상태 필터', [['', '모든 상태'], ['review', '확인 필요·미정'], ...statuses.map(status => [status, status])], filters.status)}
+      </div>
+      <div id="results"></div>`;
+  }
+
+  function taskRow(task) {
+    const done = task.status === '완료';
+    return `<article class="task${done ? ' is-done' : ''}">
+      <button type="button" class="tick" data-action="tick" data-id="${h(task.id)}" aria-label="${h(task.title)} 완료" aria-pressed="${done}">${done ? icon('check', 17) : ''}</button>
+      <button type="button" class="task-link" data-action="task" data-id="${h(task.id)}">
+        <strong>${h(task.title)}</strong>
+        <small>${shortDate(task.date)} · ${h(task.team)} · ${h(task.deadline)}</small>
+      </button>
+      ${badge(task.status, statusTone(task.status))}
+    </article>`;
+  }
+
+  function cuePage() {
+    const notes = data.notes[`${cueDay === 'friday' ? '금요일' : '토요일'} 큐시트`];
+    const items = [...new Set(data[cueDay].map(cue => cue.timing))];
+    return `${title('FIELD SCHEDULE', '현장 큐시트', '시간, 장소, 담당과 다음 인계를 확인하세요.')}
+      <div class="segment" role="group" aria-label="현장 날짜">
+        <button type="button" data-action="cue-day" data-id="friday" aria-pressed="${cueDay === 'friday'}">11/13 금요일</button>
+        <button type="button" data-action="cue-day" data-id="saturday" aria-pressed="${cueDay === 'saturday'}">11/14 토요일</button>
+      </div>
+      <p class="notice">${icon('alert', 17)}<span>${h(notes[0])}</span></p>
+      <div class="toolbar">
+        ${searchControl('cueQuery', cueQuery, '프로그램·장소·담당자 검색')}
+        ${selectControl('timingFilter', '시간 근거 필터', [['', '모든 시간 근거'], ...items.map(item => [item, item])], timingFilter)}
+      </div>
+      <div id="results"></div>`;
+  }
+
+  function cueTime(cue) {
+    if (!cue.start && !cue.end) return ['시각 미정', ''];
+    if (!cue.start) return [`${cue.end.slice(11)} 전`, shortDate(cue.end)];
+    const start = cue.start.slice(11);
+    if (!cue.end) return [start, shortDate(cue.start)];
+    const overnight = dateOnly(cue.start) !== dateOnly(cue.end);
+    return [`${start}–${cue.end.slice(11)}`, overnight ? `${shortDate(cue.start)} → ${shortDate(cue.end)}` : shortDate(cue.start)];
+  }
+
+  function cueRow(cue) {
+    const [time, day] = cueTime(cue);
+    const tone = /재확인|미정|예정/.test(cue.timing) ? 'warn' : 'standard';
+    return `<article class="cue">
+      <div class="cue-time">${h(time)}${day ? `<small>${h(day)}</small>` : ''}</div>
+      <button type="button" class="cue-card" data-action="cue" data-id="${h(cue.id)}">
+        <span class="cue-card-top">${badge(cue.timing, tone)}<small>${h(cue.id)} · ${h(cue.place)}</small></span>
+        <strong>${h(cue.title)}</strong>
+        <p>${h(cue.owner)}</p>
+      </button>
+    </article>`;
+  }
+
+  function boothPage() {
+    const notes = data.notes['레크 10부스'];
+    return `${title('SATURDAY ACTIVITIES', '레크 10부스', notes[0])}
+      <p class="notice">${icon('alert', 17)}<span>${h(notes[1])}</span></p>
+      <div class="section-head"><h2>부스 목록</h2><span class="muted">${h(data.boothNotes[0].split(' · ')[0])}</span></div>
+      <div class="booths">
+        ${data.booths.map(row => {
+          const booth = {...row, ...records.booths[row.id]};
+          return `<button type="button" class="booth-card" data-action="booth" data-id="${booth.id}">
+            <span class="booth-num">${String(booth.id).padStart(2, '0')}</span>
+            <span><strong>${h(booth.title)}</strong><small>${h(booth.owner)} · ${booth.minutes == null ? '실측 미입력' : `${h(booth.minutes)}분`}</small><br>
+            ${badge(booth.status, statusTone(booth.status))}</span>
+          </button>`;
+        }).join('')}
+      </div>`;
+  }
+
+  function matches(query, ...fields) {
+    const terms = query.toLowerCase().trim().split(/\s+/);
+    const text = fields.filter(Boolean).join(' ').toLowerCase();
+    return terms.every(term => text.includes(term));
+  }
+
+  function renderResults() {
+    const results = document.getElementById('results');
+    if (!results) return;
+    const checklist = view === 'checklist';
+    const rows = checklist ? data.tasks.map(currentTask).filter(task =>
+      (!filters.date || dateOnly(task.date) === filters.date) &&
+      (!filters.team || task.team === filters.team) &&
+      (!filters.status || (filters.status === 'review' ? needsReview(task.status) : task.status === filters.status)) &&
+      matches(filters.query, task.id, task.title, task.owner, task.team, task.criteria, task.memo)
+    ) : data[cueDay].filter(cue =>
+      (!timingFilter || cue.timing === timingFilter) &&
+      matches(cueQuery, cue.id, cue.title, cue.place, cue.owner, cue.action, cue.handoff, ...cueTime(cue))
+    );
+    results.innerHTML = `<div class="results-meta" tabindex="-1"><span>표시 ${rows.length}개</span><button type="button" class="text-button" data-action="clear">필터 초기화</button></div>
+      ${rows.length ? `<div class="list">${rows.map(checklist ? taskRow : cueRow).join('')}</div>` : '<p class="empty">조건에 맞는 항목이 없습니다. 검색어나 필터를 바꿔 보세요.</p>'}`;
+  }
+
+  function detail(entries) {
+    return `<dl class="detail">${entries.filter(([, value]) => value).map(([label, value]) =>
+      `<div><dt>${h(label)}</dt><dd>${h(value)}</dd></div>`
+    ).join('')}</dl>`;
+  }
+
+  function callout(label, value) {
+    return `<div class="callout"><strong>${h(label)}</strong>${h(value)}</div>`;
+  }
+
+  function openDialog(kicker, heading, body) {
+    if (!dialog.open) returnFocus = document.activeElement;
+    dialogContent.innerHTML = `<div class="dialog-head"><div><p>${h(kicker)}</p><h2 id="dialog-title">${h(heading)}</h2></div>
+      <button class="icon-button" type="button" aria-label="닫기" data-action="close">${icon('close', 18)}</button></div>
+      <div class="dialog-body">${body}</div>`;
+    if (!dialog.open) dialog.showModal();
+    dialog.scrollTop = 0;
+    dialog.querySelector('.icon-button').focus();
+  }
+
+  function statusField(selected, label = '상태') {
+    return `<label class="field">${label}<select name="status" aria-label="${label}">${options(statuses.map(status => [status, status]), selected)}</select></label>`;
+  }
+
+  function memoField(label, value, placeholder) {
+    return `<label class="field">${label}<textarea name="memo" maxlength="4000" placeholder="${h(placeholder)}">${h(value)}</textarea></label>`;
+  }
+
+  function saveActions() {
+    return '<div class="dialog-actions"><button type="button" class="secondary" data-action="close">닫기</button><button type="submit" class="primary">기록 저장</button></div>';
+  }
+
+  function taskDetails(id) {
+    const task = currentTask(taskMap.get(id));
+    openDialog(`${task.id} · ${shortDate(task.date)} · ${task.team}`, task.title,
+      detail([['마감 구분', task.deadline], ['담당·협의', task.owner], ['담당 근거', task.ownerBasis], ['자료 근거', task.source]]) +
+      callout('완료 기준', task.criteria) +
+      `<form data-kind="tasks" data-id="${h(id)}">${statusField(task.status)}${memoField('회의 확정·메모', task.memo, '확정 담당, 현장 인수자, 확인 내용을 적으세요.')}${saveActions()}</form>`
+    );
+  }
+
+  function cueDetails(id) {
+    const cue = cueMap.get(id);
+    const [time, date] = cueTime(cue);
+    const related = (cue.links || '').split('·').filter(Boolean);
+    openDialog(`${cue.id} · ${date} ${time}`, cue.title,
+      detail([['시간 근거', cue.timing], ['장소', cue.place], ['담당·협의', cue.owner], ['담당 근거', cue.ownerBasis], ['자료 근거', cue.source]]) +
+      callout('현장 행동', cue.action) + callout('종료·다음 인계', cue.handoff) +
+      (related.length ? `<h3>연결된 체크 항목</h3>${related.map(id => taskRow(currentTask(taskMap.get(id)))).join('')}` : '')
+    );
+  }
+
+  function boothDetails(id) {
+    const booth = {...boothMap.get(id), ...records.booths[id]};
+    openDialog(`BOOTH ${String(id).padStart(2, '0')}`, booth.title,
+      detail([['공지 담당', booth.owner]]) + callout('준비·실측 기준', booth.criteria) +
+      (id === '7' ? callout('7번 부스 운영 메모', data.boothNotes[1]) : '') +
+      `<p class="muted">${h(data.boothNotes[0])}</p>
+      <form data-kind="booths" data-id="${id}">
+        ${statusField(booth.status, '배점·게시 상태')}
+        <label class="field">실측 시간 (분)<input name="minutes" type="number" min="0" step="any" placeholder="실측 후 입력" value="${h(booth.minutes)}"></label>
+        ${memoField('장소·대행·인계 메모', booth.memo, '부스 위치와 인수자를 적으세요.')}${saveActions()}
+      </form>`
+    );
+  }
+
+  function sources() {
+    openDialog('WORKBOOK', '원본 및 근거',
+      '<p class="muted">2026 징검다리수련회 운영체크리스트 큐시트 · 11/9 23:39 확보분</p>' +
+      `<ul class="source-list">${data.sources.map(([key, value]) => `<li><strong>${h(key)}</strong> · ${h(value)}</li>`).join('')}</ul>` +
+      `<div class="callout">${h(data.notes['날짜별 준비'][1])}<br>${h(data.notes['체크리스트'][1])}<br>${h(data.notes['금요일 큐시트'][1])}</div>`
+    );
+  }
+
+  function recordManager() {
+    openDialog('LOCAL RECORDS', '내 기록 관리',
+      `<p>체크 상태, 메모, 부스 실측값은 현재 브라우저에 저장됩니다. 다른 기기에서 이어서 쓰려면 기록을 내려받아 같은 원본의 웹앱에서 가져오세요.</p>
+       <div class="dialog-actions"><button type="button" class="secondary" data-action="export">기록 내려받기</button><button type="button" class="primary" data-action="choose-import">기록 가져오기</button></div>
+       <input id="backup-file" type="file" accept=".json,application/json" hidden>
+       <div id="import-preview" role="status"></div>`
+    );
+  }
+
+  function downloadRecords() {
+    const url = URL.createObjectURL(new Blob([JSON.stringify({version: 1, source: data.key, records}, null, 2)], {type: 'application/json'}));
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = '징검다리_운영기록.json';
+    link.click();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+
+  async function previewImport(input) {
+    const file = input.files[0];
+    const preview = document.getElementById('import-preview');
+    if (!file || !preview) return;
+    input.value = '';
+    try {
+      if (file.size > 3000000) throw new Error('백업 파일이 너무 큽니다.');
+      const backup = JSON.parse(await file.text());
+      if (backup?.version !== 1 || backup.source !== data.key) throw new Error('이 원본에 해당하는 백업 파일을 선택해 주세요.');
+      const incoming = validateRecords(backup.records);
+      const count = Object.keys(incoming.tasks).length + Object.keys(incoming.booths).length;
+      preview.innerHTML = `<p class="callout">백업에 기록 ${count}개가 있습니다. 같은 항목의 기록은 백업 내용으로 바뀝니다.</p>
+        <div class="dialog-actions"><button class="primary" type="button">가져오기 적용</button></div>`;
+      preview.querySelector('button').addEventListener('click', () => {
+        records.tasks = {...records.tasks, ...incoming.tasks};
+        records.booths = {...records.booths, ...incoming.booths};
+        persist('기록을 가져왔습니다.');
+        dialog.close();
+        render();
+      });
+    } catch (error) {
+      preview.innerHTML = callout('백업을 읽을 수 없습니다', error.message);
+    }
+  }
+
+  function refocus(action, id) {
+    const target = document.querySelector(`button[data-action="${action}"][data-id="${id}"]`);
+    (target || document.querySelector('.results-meta') || main).focus({preventScroll: true});
+  }
+
+  function toggleTask(id) {
+    const task = currentTask(taskMap.get(id));
+    const markDone = task.status !== '완료';
+    records.tasks[id] = {
+      status: markDone ? '완료' : (task.beforeDone ?? '대기'),
+      memo: task.memo ?? '',
+      beforeDone: markDone ? task.status : undefined,
+    };
+    persist(markDone ? '완료로 표시했습니다.' : '완료 표시를 해제했습니다.');
+    render();
+    if (dialog.open) {
+      const cue = dialogContent.dataset.cue;
+      if (cue) cueDetails(cue);
+    } else {
+      refocus('tick', id);
+    }
+  }
+
+  document.addEventListener('click', event => {
+    const button = event.target.closest('button[data-action]');
+    if (!button) return;
+    const {action, id} = button.dataset;
+    switch (action) {
+      case 'nav': navigate(id); break;
+      case 'day':
+        dayIndex = Number(id);
+        render();
+        refocus(action, id);
+        break;
+      case 'stat':
+        if (id === 'cues') { navigate('cues'); break; }
+        filters = freshFilters();
+        if (id === 'review') filters.status = 'review';
+        navigate('checklist');
+        break;
+      case 'day-tasks':
+        filters = {...freshFilters(), date: dateOnly(data.days[dayIndex].date)};
+        navigate('checklist');
+        break;
+      case 'tick': toggleTask(id); break;
+      case 'task': taskDetails(id); break;
+      case 'cue':
+        dialogContent.dataset.cue = id;
+        cueDetails(id);
+        break;
+      case 'booth': boothDetails(id); break;
+      case 'cue-day':
+        cueDay = id;
+        timingFilter = '';
+        render();
+        refocus(action, id);
+        break;
+      case 'clear':
+        if (view === 'checklist') filters = freshFilters();
+        else { cueQuery = ''; timingFilter = ''; }
+        render();
+        main.querySelector('input[type="search"]').focus({preventScroll: true});
+        break;
+      case 'sources': sources(); break;
+      case 'close':
+        if (dialogContent.dataset.cue && dialog.querySelector('form')) cueDetails(dialogContent.dataset.cue);
+        else dialog.close();
+        break;
+      case 'export': downloadRecords(); break;
+      case 'choose-import': document.getElementById('backup-file').click(); break;
+    }
+  });
+
+  document.addEventListener('input', event => {
+    if (event.target.name === 'query') filters.query = event.target.value;
+    else if (event.target.name === 'cueQuery') cueQuery = event.target.value;
+    else return;
+    renderResults();
+  });
+
+  document.addEventListener('change', event => {
+    const {name, value} = event.target;
+    if (event.target.id === 'backup-file') { void previewImport(event.target); return; }
+    if (!main.contains(event.target)) return;
+    if (['date', 'team', 'status'].includes(name)) filters[name] = value;
+    else if (name === 'timingFilter') timingFilter = value;
+    else return;
+    renderResults();
+  });
+
+  dialog.addEventListener('submit', event => {
+    event.preventDefault();
+    const form = event.target;
+    const {kind, id} = form.dataset;
+    const fields = new FormData(form);
+    const row = {status: fields.get('status'), memo: fields.get('memo').trim()};
+    if (kind === 'booths') {
+      row.minutes = fields.get('minutes') === '' ? null : Number(fields.get('minutes'));
+    } else if (row.status === '완료') {
+      const task = currentTask(taskMap.get(id));
+      row.beforeDone = task.status === '완료' ? task.beforeDone : task.status;
+    }
+    records[kind][id] = row;
+    persist('기록을 저장했습니다.');
+    render();
+    if (dialogContent.dataset.cue) cueDetails(dialogContent.dataset.cue);
+    else {
+      dialog.close();
+      refocus(kind === 'tasks' ? 'task' : 'booth', id);
+    }
+  });
+
+  dialog.addEventListener('cancel', event => {
+    if (dialogContent.dataset.cue && dialog.querySelector('form')) {
+      event.preventDefault();
+      cueDetails(dialogContent.dataset.cue);
+    }
+  });
+  dialog.addEventListener('close', () => {
+    delete dialogContent.dataset.cue;
+    if (returnFocus?.isConnected) returnFocus.focus({preventScroll: true});
+  });
+  document.getElementById('storage').addEventListener('click', recordManager);
+  window.addEventListener('popstate', () => {
+    if (dialog.open) dialog.close();
+    view = readView();
+    render();
+  });
+  window.addEventListener('storage', event => {
+    if (event.key !== storageKey) return;
+    try {
+      records = event.newValue ? validateRecords(JSON.parse(event.newValue)) : freshRecords();
+      if (!dialog.open && !main.contains(document.activeElement)) render();
+      else renderResults();
+    } catch { /* Retain the current records when an invalid backup is written externally. */ }
+  });
+  document.querySelector('.brand-icon').innerHTML = icon('stones', 24);
+  document.querySelector('.mini-calendar').innerHTML = icon('calendar', 19);
+  updateStorageLabel();
+  render();
+})();</script>
+</body>
+</html>
